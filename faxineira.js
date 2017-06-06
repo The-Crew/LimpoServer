@@ -1,6 +1,6 @@
 var user = require('./model/user.js');
 //require('./teste.js');
-var porta_do_server = 3130;
+var porta_do_server = 3131;
 url = require('url'),
 http = require('http');
 //qs = require('querystring');
@@ -132,6 +132,38 @@ var server = http.createServer( function (req, res) {
                             }
                         });
                     break;
+                    case "onOff":
+                        user.update(objetoJson.idUser, {estado:objetoJson.estado}, function(retorno){
+                            imprimir(retorno.estado);
+                        });
+                    break;
+                    case "checando":
+                        if(objetoJson.aberto){
+                            user.findForId(objetoJson.idUser,function (retorno) {
+                                if(retorno.sol){
+                                    var json = {};
+                                    findForId(retorno.sol, function (_retorno) {
+                                        json.user.nome =_retorno.nome;
+                                        json.user.sexo = _retorno.sexo;
+                                    });
+                                    json.solLat = retorno.solLat;
+                                    json.solLng = retorno.solLng;
+                                    imprimir(json);
+                                }else{
+                                    imprimir(false);
+                                }
+                            });
+                        }else if(objetoJson.aceitar){
+                            user.update(objetoJson.idUser, {estado:false}, function(retorno){
+                                imprimir(true);
+                            });
+                        }else if(objetoJson.recusar){
+                            user.update(objetoJson.idUser, {estado:true, solLat:'',solLng:'',sol:''}, function(retorno){
+                                imprimir(true);
+                            });
+                        }
+                        
+                    break;
                 }
 
                 
@@ -144,8 +176,8 @@ var server = http.createServer( function (req, res) {
             console.log(req.url);
             console.log('Dados recebido e convertido: '+JSON.stringify(objetoJson));
         }else{
-        	imprimir('<a href="./limpo/limpo.apk">APK Limpo</a>');
-	}
+            imprimir('<a href="./limpo/limpo.apk">APK Limpo</a>');
+    }
 
         switch(objetoJson.action){
             case "login":

@@ -1,0 +1,24 @@
+{
+  "name": "limposerver",
+  "version": "1.0.0",
+  "description": "Servidor para o aplicativo Limpô",
+  "main": "index.js",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "mongodb": "^2.2.26"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/The-Crew/LimpoServer.git"
+  },
+  "author": "The Crew",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/The-Crew/LimpoServer/issues"
+  },
+  "homepage": "https://github.com/The-Crew/LimpoServer#readme"
+}
